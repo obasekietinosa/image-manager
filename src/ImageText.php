@@ -3,7 +3,6 @@
 
 namespace Etin\ImageManager;
 
-
 class ImageText
 {
     /**
@@ -31,18 +30,22 @@ class ImageText
      */
     private $height;
     /**
-     * @var string
+     * @var array
      */
-    private $hexColor;
+    private $rgbColor;
     /**
-     * @var int
+     * @var float
      */
     private $fontScale;
+    /**
+     * @var array|false
+     */
+    private $textBox;
 
-    public function __construct(string $text, string $hexColor, string $fontPath, int $fontSize=20, int $fontScale=1, int $fontAngle=0)
+    public function __construct(string $text, string $hexColor, string $fontPath, int $fontSize=20, float $fontScale=1, int $fontAngle=0)
     {
         $this->text = $text;
-        $this->hexColor = $hexColor;
+        $this->rgbColor = convertHexToRgb($hexColor);
         $this->fontPath = $fontPath;
         $this->fontSize = $fontSize;
         $this->fontAngle = $fontAngle;
@@ -53,7 +56,7 @@ class ImageText
 
     private function calculateDimensions()
     {
-        $this->textBox = imagettfbbox($this->fontSize, $this->fontAngle, $this->fontPath, $this->text);
+        $this->textBox = imagettfbbox($this->fontSize, $this->fontAngle, $this->fontPath, $this->text);//TODO: Check if Array was created, if not, error with font file
 
         $this->width = $this->textBox[2] - $this->textBox[0];
         $this->height = $this->textBox[7] - $this->textBox[1];
@@ -111,5 +114,13 @@ class ImageText
     public function getText(): string
     {
         return $this->text;
+    }
+
+    /**
+     * @return array
+     */
+    public function getColor(string $color): int
+    {
+        return $this->rgbColor[$color];
     }
 }

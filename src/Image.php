@@ -113,7 +113,9 @@ class Image
         $newImageHeight = $this->height + $top + $bottom;
         $newImage = imagecreatetruecolor($newImageWidth, $newImageHeight);
 
-        $borderColor = imagecolorallocate($newImage, 255, 255, 255); //TODO: Replace with $hexColor
+        $rgb = convertHexToRgb($hexColor);
+
+        $borderColor = imagecolorallocate($newImage, $rgb['r'], $rgb['g'], $rgb['b']);
         imagefilledrectangle($newImage, 0, 0, $newImageWidth, $newImageHeight, $borderColor);
 
         imagecopyresized(
@@ -148,7 +150,7 @@ class Image
             $text->getFontAngle(),
             ($this->width / 2) - ($text->getWidth() / 2),
             ($this->height / 2) - ($text->getHeight() / 2),//TODO:Add support for dynamic text alignment
-            imagecolorallocate($this->resource, 255, 255, 255),//TODO:Parse text color
+            imagecolorallocate($this->resource, $text->getColor('r'), $text->getColor('g'), $text->getColor('b')),
             $text->getFontPath(),
             $text->getText()
         );
