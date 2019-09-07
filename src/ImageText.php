@@ -15,7 +15,7 @@ class ImageText
      */
     private $fontPath;
     /**
-     * @var int
+     * @var float
      */
     private $fontSize;
     /**
@@ -84,7 +84,7 @@ class ImageText
     /**
      * @return int
      */
-    public function getFontSize(): int
+    public function getFontSize(): float
     {
         return $this->fontSize;
     }
