@@ -155,12 +155,12 @@ class Image
         return $this;
     }
 
-    public function renderJpeg(string $fileName=null, int $quality)
+    public function renderJpeg(string $fileName=null, int $quality=null)
     {
         imagejpeg($this->resource, $fileName, $quality);
     }
 
-    public function renderPng(string $fileName=null, int $quality)
+    public function renderPng(string $fileName=null, int $quality=null)
     {
         imagepng($this->resource, $fileName, $quality);
     }
