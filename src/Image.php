@@ -54,7 +54,7 @@ class Image
      */
     private function createImageResourceFrom(string $imagePath)
     {
-        if (! $this->resource = imagecreatefromstring($imagePath)) throw new \Exception("Image path is not a valid image");
+        if (! $this->resource = imagecreatefromstring(file_get_contents($imagePath))) throw new \Exception("Image path is not a valid image");
         $this->correctImageOrientation($imagePath);
     }
 
