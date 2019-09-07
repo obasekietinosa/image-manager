@@ -157,14 +157,16 @@ class Image
 
     public function renderJpeg(string $fileName=null, int $quality=null)
     {
+        if(! $fileName) header('Content-type: image/jpeg');
         imagejpeg($this->resource, $fileName, $quality);
     }
 
     public function renderPng(string $fileName=null, int $quality=null)
     {
+        if(! $fileName) header('Content-type: image/png');
         imagepng($this->resource, $fileName, $quality);
     }
-
+    
     public function __destruct()
     {
         // TODO: Implement __destruct() method.
