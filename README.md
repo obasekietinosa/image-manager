@@ -16,3 +16,7 @@ To use this library first install it using Composer
  
  $image = new Image("https://cdn.pixabay.com/photo/2015/04/23/21/59/tree-736877_960_720.jpg");
  ```
+The Image constructor takes any path to an image file. An exception is thrown if the path provided cannot be resolved to an image.
+
+With the image iniialized, we now have access to the image manipulation methods exposed by the library.
+
