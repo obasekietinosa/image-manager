@@ -4,7 +4,7 @@ A simple wrapper class around basic image manipulation functions in PHP
 ## How to use
 To use this library first install it using Composer
  ```
- composer require etin/image-manager:dev-master
+ composer require etin/image-manager
  ```
  
  import it where ever it is required and initialize a new image like so:
