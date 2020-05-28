@@ -35,6 +35,10 @@ class Image
     }
 
     /**
+     * Initialize the image by performing 
+     * all necessary preprocessing tasks
+     * including creating the resource and
+     * correcting the orientation
      * @param string $imagePath
      * @throws \Exception
      */
@@ -64,7 +68,7 @@ class Image
      */
     private function correctImageOrientation(string $imagePath)
     {
-        $exif = exif_read_data($imagePath);
+        $exif = @exif_read_data($imagePath);
         $orientation = $exif['Orientation'];
 
         switch ($orientation) {
@@ -83,6 +87,7 @@ class Image
     }
 
     /**
+     * Return the width of the image
      * @return false|int
      */
     public function getWidth()
@@ -91,6 +96,7 @@ class Image
     }
 
     /**
+     * Return the height of the image
      * @return false|int
      */
     public function getHeight()
@@ -119,16 +125,16 @@ class Image
         imagefilledrectangle($newImage, 0, 0, $newImageWidth, $newImageHeight, $borderColor);
 
         imagecopyresized(
-            $newImage,
-            $this->resource,
-            $left,
-            $top,
-            0,
-            0,
-            $this->width,
-            $this->height,
-            $this->width,
-            $this->height
+          $newImage,
+          $this->resource,
+          $left,
+          $top,
+          0,
+          0,
+          $this->width,
+          $this->height,
+          $this->width,
+          $this->height
         );
 
         $this->resource = $newImage;
@@ -141,18 +147,25 @@ class Image
      * @param string $align
      * @return $this
      */
-    public function addText(ImageText $text, string $align="center")
+    public function addText($text, $positionX="center", $positionY="center", bool $shouldScale=false)
     {
-        $text->scale($this->width);
+        if (! $text instanceof ImageText){
+          $text = new ImageText($text);
+        }
+        if($shouldScale) $text->scale($this->width);
+
+        $positionX = is_string($positionX) ? resolvePosition($positionX, $this->width, $text->getWidth()) : $positionX;
+        $positionY = is_string($positionY) ? resolvePosition($positionY, $this->height, $text->getHeight()) : $positionY;
+        
         imagettftext(
-            $this->resource,
-            $text->getFontSize(),
-            $text->getFontAngle(),
-            ($this->width / 2) - ($text->getWidth() / 2),
-            ($this->height / 2) - ($text->getHeight() / 2),//TODO:Add support for dynamic text alignment
-            imagecolorallocate($this->resource, $text->getColor('r'), $text->getColor('g'), $text->getColor('b')),
-            $text->getFontPath(),
-            $text->getText()
+          $this->resource,
+          $text->getFontSize(),
+          $text->getFontAngle(),
+          $positionX,
+          $positionY,//TODO:Add support for dynamic text alignment
+          imagecolorallocate($this->resource, $text->getColor('r'), $text->getColor('g'), $text->getColor('b')),
+          $text->getFontPath(),
+          $text->getText()
         );
         return $this;
     }
