@@ -31,8 +31,8 @@ Returns the height of the image in pixels.
 Adds a border to the image. This method is fluent and returns the **Image** instance.
 It accepts the dimensions for the border in pixels and the color in hexadecimal string (example "#000")
 
-### addText(ImageText $text, string $align="center")
-Adds a text to the image.The text to be added must be an instance of the **ImageText** class which exposes methods for managing text on an image. The second argument determines the alignment of the text.
+### addText($text, $positionX="center", $positionY="center", bool $shouldScale=false)
+Adds a text to the image.The text to be added can be an instance of the **ImageText** class which exposes methods for managing text on an image or a string. The second and third arguments determines the alignment of the text.
 
 ### renderJpeg(string $fileName=null, int $quality=null)
 Renders the image as a JPEG. To render as a file, that is, with the proper ```X-Content-Type``` header set, pass a filename as the first argument. Otherwise the image is rendered as a stream in most clients.
