@@ -42,7 +42,7 @@ class ImageText
      */
     private $textBox;
 
-    public function __construct(string $text, string $hexColor="#000", string $fontPath=getcwd() ."/OpenSans.ttf", int $fontSize=20, float $fontScale=1, int $fontAngle=0)
+    public function __construct(string $text, string $hexColor="#000", string $fontPath=(__DIR__ . "/OpenSans.ttf"), int $fontSize=20, float $fontScale=1, int $fontAngle=0)
     {
         $this->text = $text;
         $this->rgbColor = convertHexToRgb($hexColor);
