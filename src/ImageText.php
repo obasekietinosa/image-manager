@@ -44,6 +44,7 @@ class ImageText
 
     public function __construct(string $text, string $hexColor="#000", string $fontPath=(__DIR__ . "/OpenSans.ttf"), int $fontSize=20, float $fontScale=1, int $fontAngle=0)
     {
+      // print_r($fontPath);die();
         $this->text = $text;
         $this->rgbColor = convertHexToRgb($hexColor);
         $this->fontPath = $fontPath;
